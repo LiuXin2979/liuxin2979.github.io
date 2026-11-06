@@ -1,0 +1,15 @@
+---
+import { render } from "astro:content";
+import Entry from "../../layouts/Entry.astro";
+import { getEntries } from "../../lib/content";
+
+export async function getStaticPaths() {
+  return (await getEntries("projects")).map(project => ({ params: { id: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<Entry id={project.id} kind="project" section="项目展示" {...project.data} topic={project.data.status}>
+  <Content />
+</Entry>

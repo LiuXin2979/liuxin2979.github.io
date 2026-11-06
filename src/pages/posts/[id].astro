@@ -1,0 +1,15 @@
+---
+import { render } from "astro:content";
+import Entry from "../../layouts/Entry.astro";
+import { getEntries, topics } from "../../lib/content";
+
+export async function getStaticPaths() {
+  return (await getEntries("posts")).map(post => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Entry id={post.id} kind="post" section="技术文章" {...post.data} topic={topics[post.data.topic]}>
+  <Content />
+</Entry>

@@ -1,0 +1,18 @@
+---
+import { BookOpenText } from "@lucide/astro";
+import PostList from "../../components/PostList.astro";
+import Site from "../../layouts/Site.astro";
+import { getEntries } from "../../lib/content";
+
+const posts = await getEntries("posts");
+---
+<Site title="技术文章" description="从 WinForms 线程、SQL Server 查询到 PLC 握手的开发笔记">
+  <section class="page-section reveal" aria-labelledby="page-title">
+    <div class="page-heading">
+      <span class="eyebrow section-kicker"><BookOpenText size={16} /> FIELD NOTES</span>
+      <h1 id="page-title">技术文章</h1>
+      <p>从桌面界面、数据库到工业通信，每篇围绕一个可复现的问题</p>
+    </div>
+    <PostList posts={posts} heading="h2" />
+  </section>
+</Site>

@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { ArrowUpRight } from "@lucide/astro";
+import { topics } from "../lib/content";
+import TopicIcon from "./TopicIcon.astro";
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
+  heading?: "h2" | "h3";
+}
+const { posts, heading: Heading = "h3" } = Astro.props;
+---
+<div class="post-list">
+  {posts.map(({ id, data }) => (
+    <a class="post-row" href={`/posts/${id}/`} transition:name={`post-card-${id}`}>
+      <span class:list={["topic-icon", data.topic]}><TopicIcon topic={data.topic} /></span>
+      <div class="post-copy">
+        <span class="post-meta">{topics[data.topic]} <span aria-hidden="true">/</span> <time datetime={data.date}>{data.date.replaceAll("-", ".")}</time> <span aria-hidden="true">/</span> {data.minutes} 分钟</span>
+        <Heading class="card-title" transition:name={`post-title-${id}`}>{data.title}</Heading>
+        <p>{data.description}</p>
+      </div>
+      <ArrowUpRight class="card-arrow" size={20} aria-hidden="true" />
+    </a>
+  ))}
+</div>

@@ -1,0 +1,12 @@
+---
+import { ArrowLeft } from "@lucide/astro";
+import Site from "../layouts/Site.astro";
+---
+<Site title="页面未找到">
+  <section class="page-section page-heading reveal">
+    <span class="eyebrow section-kicker">404</span>
+    <h1>页面未找到</h1>
+    <p>这个链接可能已经移动</p>
+    <a class="button primary" href="/"><ArrowLeft size={17} /> 返回首页</a>
+  </section>
+</Site>

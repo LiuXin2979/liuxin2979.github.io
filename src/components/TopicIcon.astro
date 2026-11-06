@@ -1,0 +1,12 @@
+---
+import { AppWindow, Database, Network } from "@lucide/astro";
+
+interface Props {
+  topic: "desktop" | "database" | "control";
+  size?: number;
+}
+
+const { topic, size = 21 } = Astro.props;
+const Icon = { desktop: AppWindow, database: Database, control: Network }[topic];
+---
+<Icon size={size} stroke-width={1.75} aria-hidden="true" />

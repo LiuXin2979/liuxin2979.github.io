@@ -1,0 +1,48 @@
+---
+import { ArrowDown, ArrowRight, ArrowUpRight, BookOpenText, Layers, ScanLine } from "@lucide/astro";
+import FlowDiagram from "../components/FlowDiagram.astro";
+import PostList from "../components/PostList.astro";
+import ProjectCards from "../components/ProjectCards.astro";
+import Site from "../layouts/Site.astro";
+import { getEntries } from "../lib/content";
+
+const [posts, projects] = await Promise.all([getEntries("posts"), getEntries("projects")]);
+---
+<Site>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy reveal">
+      <span class="eyebrow"><span class="pulse-dot"></span> 工业软件开发博客</span>
+      <h1 id="hero-title">把工业软件<br /><span>写得更可靠</span></h1>
+      <p>记录从桌面应用到设备通信的开发方法，<br class="hero-break" />把界面、数据和工业信号串成可验证的链路</p>
+      <div class="hero-actions">
+        <a href="/posts/" class="button primary">阅读文章 <ArrowRight size={18} /></a>
+        <a href="/projects/" class="button secondary">浏览项目 <ArrowUpRight size={16} /></a>
+      </div>
+    </div>
+    <FlowDiagram />
+  </section>
+
+  <div class="tech-strip reveal">
+    <span class="strip-label"><ScanLine size={18} /> 技术方向</span>
+    <div class="tags">
+      {["C#", "WinForms", "SQL Server", "MES", "PLC", "OPC"].map(tag => <span>{tag}</span>)}
+    </div>
+    <a class="icon-button strip-link" href="#recent" aria-label="跳到最新文章"><ArrowDown size={17} /></a>
+  </div>
+
+  <section class="home-section reveal" id="recent" aria-labelledby="recent-title">
+    <div class="section-heading">
+      <div><span class="eyebrow section-kicker"><BookOpenText size={15} /> FIELD NOTES</span><h2 id="recent-title">最新文章</h2></div>
+      <a class="text-link" href="/posts/">全部文章 <ArrowRight size={17} /></a>
+    </div>
+    <PostList posts={posts.slice(0, 3)} />
+  </section>
+
+  <section class="home-section reveal" aria-labelledby="projects-title">
+    <div class="section-heading">
+      <div><span class="eyebrow section-kicker"><Layers size={15} /> PROJECTS</span><h2 id="projects-title">项目展示</h2></div>
+      <a class="text-link" href="/projects/">全部项目 <ArrowRight size={17} /></a>
+    </div>
+    <ProjectCards projects={projects.slice(0, 3)} />
+  </section>
+</Site>

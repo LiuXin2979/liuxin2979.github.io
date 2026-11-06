@@ -1,0 +1,45 @@
+---
+import { AppWindow, Database, Network, Workflow } from "@lucide/astro";
+
+const nodes = [
+  { name: "PLC", x: 36, y: 136, icon: Workflow },
+  { name: "OPC", x: 167, y: 136, icon: Network },
+  { name: "WinForms", x: 315, y: 79, icon: AppWindow },
+  { name: "SQL Server", x: 315, y: 194, icon: Database },
+];
+---
+<figure class="flow-board reveal" aria-labelledby="flow-label">
+  <div class="board-top">
+    <span id="flow-label">工业数据链路</span>
+    <span class="board-caption"><i></i> 示意图</span>
+  </div>
+  <svg class="flow-graphic" viewBox="0 0 435 272" role="img" aria-label="PLC 信号经过 OPC，分别流向 WinForms 界面和 SQL Server 数据库">
+    <defs>
+      <pattern id="board-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="#81aaff" opacity=".32" />
+      </pattern>
+      <linearGradient id="board-line">
+        <stop stop-color="#79aaff" stop-opacity=".55" />
+        <stop offset="1" stop-color="#c6d9ff" />
+      </linearGradient>
+    </defs>
+    <rect x="8" y="9" width="419" height="248" rx="10" fill="url(#board-grid)" />
+    <g fill="none" stroke="url(#board-line)" stroke-width="1.5">
+      <path d="M125 136H167 M256 136H275 Q287 136 287 124V91Q287 79 299 79H315 M256 136H275Q287 136 287 148V182Q287 194 299 194H315" />
+    </g>
+    <g fill="#bfd4ff">
+      <circle cx="146" cy="136" r="3.5" class="signal signal-a" />
+      <circle cx="287" cy="136" r="4" />
+      <circle cx="287" cy="105" r="3.5" class="signal signal-b" />
+      <circle cx="287" cy="169" r="3.5" class="signal signal-c" />
+    </g>
+    {nodes.map(({ name, x, y, icon: Icon }) => (
+      <g class="flow-node" transform={`translate(${x} ${y - 30})`}>
+        <rect width="89" height="60" rx="10" fill="#1749b3" stroke="#8eafff" stroke-opacity=".63" />
+        <svg x="34" y="8" width="21" height="21" viewBox="0 0 24 24" color="#e5edff"><Icon size={24} stroke-width={1.55} /></svg>
+        <text x="44.5" y="46" text-anchor="middle">{name}</text>
+      </g>
+    ))}
+  </svg>
+  <figcaption class="board-foot"><span>SIGNAL FLOW</span><span>采集 / 显示 / 追溯</span></figcaption>
+</figure>

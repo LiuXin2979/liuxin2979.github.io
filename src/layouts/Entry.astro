@@ -1,0 +1,37 @@
+---
+import { ArrowLeft } from "@lucide/astro";
+import Site from "./Site.astro";
+
+interface Props {
+  id: string;
+  kind: "post" | "project";
+  title: string;
+  description: string;
+  section: string;
+  tags: string[];
+  topic: string;
+  date?: string;
+  minutes?: number;
+}
+
+const { id, kind, title, description, section, tags, topic, date, minutes } = Astro.props;
+const href = kind === "post" ? "/posts/" : "/projects/";
+---
+<Site title={title} description={description}>
+  <article class="entry reveal">
+    <a class="text-link back-link" href={href}><ArrowLeft size={17} /> {section}</a>
+    <header class="entry-heading">
+      <div class="post-meta">
+        {topic}
+        {date && <><span aria-hidden="true">/</span> <time datetime={date}>{date.replaceAll("-", ".")}</time></>}
+        {minutes && <><span aria-hidden="true">/</span> {minutes} 分钟</>}
+      </div>
+      <h1 transition:name={`${kind}-title-${id}`}>{title}</h1>
+      <p>{description}</p>
+      <div class="tags">{tags.map(tag => <span>{tag}</span>)}</div>
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</Site>

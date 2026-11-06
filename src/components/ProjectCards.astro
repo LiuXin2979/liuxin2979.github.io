@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { ArrowUpRight } from "@lucide/astro";
+import TopicIcon from "./TopicIcon.astro";
+
+interface Props {
+  projects: CollectionEntry<"projects">[];
+  heading?: "h2" | "h3";
+}
+const { projects, heading: Heading = "h3" } = Astro.props;
+---
+<div class="project-grid">
+  {projects.map(({ id, data }) => (
+    <a class="project-card" href={`/projects/${id}/`} transition:name={`project-card-${id}`}>
+      <div class="project-top">
+        <span class:list={["topic-icon", data.topic]}><TopicIcon topic={data.topic} /></span>
+        <span class="status-chip">{data.status}</span>
+        <ArrowUpRight class="card-arrow" size={19} aria-hidden="true" />
+      </div>
+      <Heading class="card-title" transition:name={`project-title-${id}`}>{data.title}</Heading>
+      <p>{data.description}</p>
+      <div class="tags">{data.tags.map(tag => <span>{tag}</span>)}</div>
+    </a>
+  ))}
+</div>

@@ -1,0 +1,35 @@
+---
+import { AppWindow, CodeXml, Database, Network } from "@lucide/astro";
+import Site from "../layouts/Site.astro";
+
+const areas = [
+  { Icon: AppWindow, title: "C# 与 WinForms", description: "桌面应用、异步刷新、状态管理与交互边界" },
+  { Icon: Database, title: "SQL Server", description: "追溯数据建模、查询诊断和可复现的性能对比" },
+  { Icon: Network, title: "MES、PLC 与 OPC", description: "设备通信、请求应答、断线恢复与数据一致性" },
+];
+---
+<Site title="关于我" description="工控笔记的写作主题与公开内容范围">
+  <section class="page-section reveal" aria-labelledby="page-title">
+    <div class="page-heading">
+      <span class="eyebrow section-kicker"><CodeXml size={16} /> ABOUT</span>
+      <h1 id="page-title">关于我</h1>
+      <p>欢迎来到工控笔记。这里记录我关注的工业软件开发问题，从桌面应用、数据追溯到设备通信。</p>
+    </div>
+    <section class="about-block" aria-labelledby="about-topics">
+      <h2 id="about-topics">技术方向</h2>
+      <div class="about-grid">
+        {areas.map(({ Icon, title, description }) => (
+          <div class="about-card">
+            <span class="topic-icon"><Icon size={22} /></span>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+    <section class="about-block about-note" aria-labelledby="about-examples">
+      <h2 id="about-examples">关于示例</h2>
+      <p>文章使用可在本地复现的简化场景。设备状态、点位、表结构和样例数据均为演示用途，项目方案也以离线验证为边界。</p>
+    </section>
+  </section>
+</Site>
