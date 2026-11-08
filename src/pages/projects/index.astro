@@ -6,12 +6,12 @@ import { getEntries } from "../../lib/content";
 
 const projects = await getEntries("projects");
 ---
-<Site title="项目展示" description="公开网站源码与工业软件离线练习方案">
+<Site title="项目展示" description="工业软件项目、离线练习方案与网站源码">
   <section class="page-section reveal" aria-labelledby="page-title">
     <div class="page-heading">
       <span class="eyebrow section-kicker"><Layers size={16} /> PROJECTS</span>
       <h1 id="page-title">项目展示</h1>
-      <p>从可浏览的博客源码，到可用虚构数据演练的项目方案</p>
+      <p>工业软件项目、可离线演练的方案与本站源码</p>
     </div>
     <ProjectCards projects={projects} heading="h2" />
   </section>
